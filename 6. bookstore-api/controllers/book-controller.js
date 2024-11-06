@@ -12,7 +12,7 @@ const getAllBooks = async (req, res) => {
     } else {
       res.status(404).json({
         success: false,
-        message: "Bo books found in collection",
+        message: "No books found in collection",
       });
     }
   } catch (e) {
