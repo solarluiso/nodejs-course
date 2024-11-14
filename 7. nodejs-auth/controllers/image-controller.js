@@ -15,7 +15,7 @@ const uploadImageController = async (req, res) => {
     // upload to cloudinary
     const { url, publicId } = await uploadToCloudinary(req.file.path);
 
-    //store the image url and public id along with the uploaded user id in database
+    // store the image url and public id along with the uploaded user id in database
     const newlyUploadedImage = new Image({
       url,
       publicId,
@@ -41,6 +41,26 @@ const uploadImageController = async (req, res) => {
   }
 };
 
+const fetchImagesController = async (req, res) => {
+  try {
+    const images = await Image.find();
+
+    if (images) {
+      res.status(200).json({
+        success: true,
+        data: images,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong! Please try again",
+    });
+  }
+};
+
 module.exports = {
   uploadImageController,
+  fetchImagesController,
 };
